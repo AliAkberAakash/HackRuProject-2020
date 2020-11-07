@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -49,4 +50,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-analytics'
+
+    //google authentication
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
 }
