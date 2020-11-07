@@ -89,8 +89,10 @@ class LoginActivity: AppCompatActivity() {
 
             }
         }
-        if(currentUser!=null)
+        if(currentUser!=null) {
             startActivity(startIntent)
+            finish()
+        }
 
     }
 
