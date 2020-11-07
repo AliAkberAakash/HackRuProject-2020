@@ -7,6 +7,7 @@ plugins {
 }
 
 android {
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -58,6 +59,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-analytics'
 
+    //google authentication
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+
     //Navigation components
     def nav_version_ktx = "2.3.1"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version_ktx"
@@ -66,4 +70,5 @@ dependencies {
     //material components
     def material_version = "1.1.0"
     implementation "com.google.android.material:material:$material_version"
+
 }
