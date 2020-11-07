@@ -40,10 +40,6 @@ class LoginActivity: AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-
-        val image: ImageView = findViewById(R.id.imageView)
-        image.setImageResource(R.drawable.cutie)
-
         sign_in_button.setOnClickListener {
             signIn()
         }
