@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.aliakberaakash.cutiehacksproject2020.R
 
 class AddFriendFragment : Fragment() {
@@ -20,7 +21,17 @@ class AddFriendFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.add_friend_fragment, container, false)
+        var view:View = inflater.inflate(R.layout.add_friend_fragment, container, false)
+        var connectBtn: Button = view.findViewById(R.id.button)
+        connectBtn.setOnClickListener(View.OnClickListener {
+            val fragmentManager = activity?.supportFragmentManager;
+            if (fragmentManager != null) {
+                fragmentManager.beginTransaction()
+                    .add(R.id.sendfriend_fragment, SendPicFragment())
+                    .commit()
+            }
+        })
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
