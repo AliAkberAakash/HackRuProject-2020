@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="connect">#fcb000</color>
     <color name="sendbtn">#ff4d00</color>
+    <color name="upload">#ed7b3e</color>
 </resources>

@@ -86,7 +86,6 @@ class LoginActivity: AppCompatActivity() {
             //passes in the user's name for display
             if (currentUser != null) {
                 putExtra("Name",currentUser.displayName)
-
             }
         }
         if(currentUser!=null) {
