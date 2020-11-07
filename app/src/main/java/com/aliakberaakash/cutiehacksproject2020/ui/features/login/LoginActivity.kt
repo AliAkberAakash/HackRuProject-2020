@@ -1,12 +1,12 @@
-package com.aliakberaakash.cutiehacksproject2020
+package com.aliakberaakash.cutiehacksproject2020.ui.features.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
+import com.aliakberaakash.cutiehacksproject2020.MainActivity
+import com.aliakberaakash.cutiehacksproject2020.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -29,7 +29,7 @@ class LoginActivity: AppCompatActivity() {
 
         var googleSignInClient = GoogleSignIn.getClient(this, gso)
         val account = GoogleSignIn.getLastSignedInAccount(this)
-        val startIntent = Intent(this,MainActivity::class.java).apply{
+        val startIntent = Intent(this, MainActivity::class.java).apply{
             //passes in the user's name for display
             if (account != null) {
                 putExtra("Name",account.displayName)
@@ -66,7 +66,7 @@ class LoginActivity: AppCompatActivity() {
         try {
             val account =
                 completedTask.getResult(ApiException::class.java)
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             // Signed in successfully, show authenticated UI.
 
         } catch (e: ApiException) {
