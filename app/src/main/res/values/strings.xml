@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CutieHacksProject2020</string>
+    <string name="title_home">Home</string>
+    <string name="title_feed">Feed</string>
+    <string name="title_add_friend">Add Friend</string>
+    <string name="title_menu">Menu</string>
+</resources>
