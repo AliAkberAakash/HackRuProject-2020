@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
 }
 
@@ -65,8 +66,4 @@ dependencies {
     //material components
     def material_version = "1.1.0"
     implementation "com.google.android.material:material:$material_version"
-
-    //androidx fragment
-    def fragment_version = "1.2.5"
-    implementation "androidx.fragment:fragment-ktx:$fragment_version"
 }
