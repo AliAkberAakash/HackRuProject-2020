@@ -10,4 +10,6 @@
     <string name="addpic">Send a Picture</string>
     <string name="send">Send</string>
     <string name="log_out">Log Out</string>
+    <string name="share">Share your cutie here</string>
+    <string name="upload">Upload Image</string>
 </resources>

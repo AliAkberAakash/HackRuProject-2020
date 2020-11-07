@@ -33,5 +33,8 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         setupActionBarWithNavController(this,navController)
         NavigationUI.setupWithNavController(bottom_nav, navController)
+
     }
+
+
 }
