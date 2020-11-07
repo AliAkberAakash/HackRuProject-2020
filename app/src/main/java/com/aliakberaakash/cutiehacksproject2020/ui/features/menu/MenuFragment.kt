@@ -1,12 +1,22 @@
 package com.aliakberaakash.cutiehacksproject2020.ui.features.menu
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.aliakberaakash.cutiehacksproject2020.R
+import com.aliakberaakash.cutiehacksproject2020.ui.features.login.LoginActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.menu_fragment.*
+
 
 class MenuFragment : Fragment() {
 
@@ -15,6 +25,7 @@ class MenuFragment : Fragment() {
     }
 
     private lateinit var viewModel: MenuViewModel
+    private lateinit var googleSignInClient : GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +37,22 @@ class MenuFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MenuViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.server_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+
+        log_out_button.setOnClickListener {
+            Firebase.auth.signOut()
+            googleSignInClient.signOut().addOnCompleteListener(requireActivity()) {
+                startActivity(Intent(requireActivity(), LoginActivity::class.java))
+                requireActivity().finish()
+            }
+
+        }
     }
 
 }
