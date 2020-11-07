@@ -60,6 +60,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
 
     //google authentication
+    implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
 
     //Navigation components
@@ -70,5 +71,8 @@ dependencies {
     //material components
     def material_version = "1.1.0"
     implementation "com.google.android.material:material:$material_version"
+
+    //circular imageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }

@@ -7,6 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.aliakberaakash.cutiehacksproject2020.R
+import com.aliakberaakash.cutiehacksproject2020.data.model.Post
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.feed_fragment.*
 
 class FeedFragment : Fragment() {
 
@@ -26,7 +30,24 @@ class FeedFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        // TODO: Use the ViewModel
+        val user = Firebase.auth.currentUser
+
+        val adapter = PostAdapter(listOf(
+            Post(
+                1,
+                user!!,
+                "This is a test post",
+                ""
+            ),
+            Post(
+                1,
+                user,
+                "This is a test post",
+                ""
+            ),
+        ))
+        feed_recyclerview.adapter = adapter
+
     }
 
 }
