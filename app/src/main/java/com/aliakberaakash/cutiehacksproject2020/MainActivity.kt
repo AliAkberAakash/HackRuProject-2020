@@ -1,6 +1,7 @@
 package com.aliakberaakash.cutiehacksproject2020
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.aliakberaakash.cutiehacksproject2020.databinding.ActivityMainBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
+import java.net.URI
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,8 +31,11 @@ class MainActivity : AppCompatActivity() {
         val info: Intent = getIntent()
         val email:String? = info.getStringExtra("Email")
         val userName:String? = info.getStringExtra("Name")
+        val image: String? = info.getStringExtra("profile")
+        val imageUri = URI.create(image)
         val data = hashMapOf(
                 "name" to userName,
+                "profile" to imageUri
         )
         db.collection("users").document(email.toString())
                 .set(data)
