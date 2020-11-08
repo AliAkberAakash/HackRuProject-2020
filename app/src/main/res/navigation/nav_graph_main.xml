@@ -19,5 +19,5 @@
     <fragment
         android:id="@+id/uploadImageFragment"
         android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.uploadImage.UploadImageFragment"
-        android:label="UploadImageFragment" />
+        android:label="Create Post" />
 </navigation>
