@@ -2,6 +2,7 @@ package com.aliakberaakash.cutiehacksproject2020.ui.features.feed
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,22 +36,50 @@ class FeedFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
+        val user = Firebase.auth.currentUser
+
         var postList:MutableList<Post> = mutableListOf()
         val db = Firebase.firestore
         db.collection("posts")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
+
                     val id:String = document.getString("id")!!
-                    val description:String = document.getString("description")!!
-                    val user: User = document.get("user")
+                    val description:String = document.getString("description")?:""
                     val image:String = document.getString("image")!!
-                    postList.add(Post(id,user,description,image))
+                    postList.add(Post(id, User(
+                        id = user!!.email!!,
+                        userName = user.displayName!!,
+                        image = ""
+                    ),description,image))
                 }
             }
 
-        val adapter = PostAdapter(postList)
-        val user = Firebase.auth.currentUser
+        val adapter = PostAdapter(listOf(
+            Post(
+                image = "",
+                id = "",
+                user = User(
+                    id = user!!.email!!,
+                    userName = user.displayName!!,
+                    image = ""
+                ),
+                description = ""
+            ),
+                    Post(
+                    image = "",
+            id = "",
+            user = User(
+                id = user!!.email!!,
+                userName = user.displayName!!,
+                image = ""
+            ),
+            description = ""
+        )
+
+        ))
+        Log.d("xoxo", postList.toString())
 
         feed_recyclerview.adapter = adapter
 
