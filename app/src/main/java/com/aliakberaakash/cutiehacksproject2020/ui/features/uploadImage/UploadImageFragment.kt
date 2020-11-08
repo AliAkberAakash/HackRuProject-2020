@@ -14,6 +14,9 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.aliakberaakash.cutiehacksproject2020.R
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 
@@ -24,6 +27,7 @@ class UploadImageFragment : Fragment() {
     }
     lateinit var bitmap:Bitmap
     lateinit var img:ImageView
+    lateinit var selectedImage:Uri
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +43,12 @@ class UploadImageFragment : Fragment() {
                     MediaStore.Images.Media.INTERNAL_CONTENT_URI
                 ), GET_FROM_GALLERY
             )
-
         })
 
+        var postBtn:Button = view.findViewById(R.id.postBtn)
+        postBtn.setOnClickListener(View.OnClickListener {
+
+        })
 
         return view
     }
@@ -57,7 +64,9 @@ class UploadImageFragment : Fragment() {
 
         //Detects request codes
         if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-            val selectedImage: Uri? = data?.data
+            if (data != null) {
+                selectedImage = data.data!!
+            }
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, selectedImage)
             } catch (e: FileNotFoundException) {
@@ -66,6 +75,8 @@ class UploadImageFragment : Fragment() {
                 e.printStackTrace()
             }
         }
-        img.setImageBitmap(bitmap)
+        if(bitmap!=null){
+            img.setImageBitmap(bitmap)
+        }
     }
 }
