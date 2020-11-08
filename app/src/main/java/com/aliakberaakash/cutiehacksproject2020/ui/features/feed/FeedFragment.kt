@@ -37,7 +37,7 @@ class FeedFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
         var postList:MutableList<Post> = mutableListOf()
         val db = Firebase.firestore
-        db.collection("cities")
+        db.collection("posts")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
