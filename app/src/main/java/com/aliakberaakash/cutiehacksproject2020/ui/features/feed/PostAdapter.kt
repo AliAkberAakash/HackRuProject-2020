@@ -25,6 +25,7 @@ class PostAdapter(var postList: List<Post>) : RecyclerView.Adapter<PostViewHolde
         holder.postImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.cutie))
         holder.userName.text = postList[position].user.userName
         holder.description.text = postList[position].description
+        holder.likesCount.text = postList[position].likes.size.toString()
     }
 
     override fun getItemCount() = postList.size
