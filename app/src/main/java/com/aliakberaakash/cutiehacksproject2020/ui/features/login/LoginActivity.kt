@@ -40,10 +40,6 @@ class LoginActivity: AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-
-        val image: ImageView = findViewById(R.id.imageView)
-        image.setImageResource(R.drawable.cutie)
-
         sign_in_button.setOnClickListener {
             signIn()
         }
@@ -86,6 +82,7 @@ class LoginActivity: AppCompatActivity() {
             //passes in the user's name for display
             if (currentUser != null) {
                 putExtra("Name",currentUser.displayName)
+                putExtra("Email",currentUser.email)
             }
         }
         if(currentUser!=null) {

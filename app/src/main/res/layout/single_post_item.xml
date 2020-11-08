@@ -13,9 +13,10 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/post_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -24,29 +25,44 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/cutie"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            android:src="@drawable/cutie" />
+            app:layout_constraintTop_toBottomOf="@id/post_image" />
 
         <TextView
             android:id="@+id/user_name"
-            android:textSize="28sp"
-            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile_image"
-            app:layout_constraintTop_toBottomOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="start"
+            android:textColor="@color/design_default_color_primary"
+
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            app:layout_constraintTop_toTopOf="@id/profile_image"
             tools:text="username" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_heart"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profile_image" />
+
         <TextView
+            android:layout_marginTop="10dp"
             android:padding="8dp"
             android:id="@+id/description"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

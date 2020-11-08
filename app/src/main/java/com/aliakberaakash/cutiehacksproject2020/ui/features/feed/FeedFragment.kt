@@ -35,18 +35,7 @@ class FeedFragment : Fragment() {
         val user = Firebase.auth.currentUser
 
         val adapter = PostAdapter(listOf(
-            Post(
-                1,
-                user!!,
-                "This is a test post",
-                ""
-            ),
-            Post(
-                1,
-                user,
-                "This is a test post",
-                ""
-            ),
+
         ))
         feed_recyclerview.adapter = adapter
 
