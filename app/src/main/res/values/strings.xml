@@ -12,4 +12,5 @@
     <string name="log_out">Log Out</string>
     <string name="share">Share your cutie here</string>
     <string name="upload">Upload Image</string>
+    <string name="create_post">Create Post</string>
 </resources>

@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.aliakberaakash.cutiehacksproject2020.R
+import com.google.android.material.button.MaterialButton
 import java.io.FileNotFoundException
 import java.io.IOException
 
@@ -28,9 +29,9 @@ class UploadImageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view: View = inflater.inflate(R.layout.uploadimage_layout, container, false)
-        var uploadBtn: Button = view.findViewById(R.id.uploadBtn)
-        img = view.findViewById(R.id.uploadBtn)
+        val view: View = inflater.inflate(R.layout.uploadimage_layout, container, false)
+        val uploadBtn: MaterialButton = view.findViewById(R.id.uploadBtn)
+        img = view.findViewById(R.id.imageUpload)
         uploadBtn.setOnClickListener(View.OnClickListener {
             startActivityForResult(
                 Intent(
@@ -58,7 +59,7 @@ class UploadImageFragment : Fragment() {
         if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             val selectedImage: Uri? = data?.data
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(activity?.getContentResolver(), selectedImage)
+                bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, selectedImage)
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
             } catch (e: IOException) {
