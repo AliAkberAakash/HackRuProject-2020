@@ -9,16 +9,15 @@
     <fragment
         android:id="@+id/feedFragment"
         android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.feed.FeedFragment"
-        android:label="feed_fragment"
+        android:label="Feed"
         tools:layout="@layout/feed_fragment" />
-    <fragment
-        android:id="@+id/addFriendFragment"
-        android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.addfriend.AddFriendFragment"
-        android:label="add_friend_fragment"
-        tools:layout="@layout/add_friend_fragment" />
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.menu.MenuFragment"
-        android:label="menu_fragment"
+        android:label="Menu"
         tools:layout="@layout/menu_fragment" />
+    <fragment
+        android:id="@+id/uploadImageFragment"
+        android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.uploadImage.UploadImageFragment"
+        android:label="UploadImageFragment" />
 </navigation>

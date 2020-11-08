@@ -3,11 +3,13 @@
 
     <item
         android:id="@+id/feedFragment"
+        android:icon="@drawable/ic_rss"
         android:title="@string/title_feed" />
     <item
-        android:id="@+id/addFriendFragment"
-        android:title="@string/title_add_friend" />
+        android:id="@+id/uploadImageFragment"
+        android:title="@string/create_post" />
     <item
+        android:icon="@drawable/ic_baseline_menu_24"
         android:id="@+id/menuFragment"
         android:title="@string/title_menu" />
 </menu>
