@@ -87,6 +87,7 @@ class UploadImageFragment : Fragment() {
                     val post = Post(
                         id = "",
                         user = User(
+                            Firebase.auth.currentUser!!.email!!,
                             Firebase.auth.currentUser!!.displayName!!,
                             ""
                         ),
