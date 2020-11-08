@@ -6,6 +6,7 @@
         android:icon="@drawable/ic_rss"
         android:title="@string/title_feed" />
     <item
+        android:icon="@drawable/ic_baseline_add_24"
         android:id="@+id/uploadImageFragment"
         android:title="@string/create_post" />
     <item

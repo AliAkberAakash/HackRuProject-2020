@@ -17,17 +17,20 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.io.File
+
+import kotlinx.android.synthetic.main.uploadimage_layout.*
 import java.io.FileNotFoundException
 import java.io.IOException
 
 
 class UploadImageFragment : Fragment() {
     companion object{
-        val GET_FROM_GALLERY = 3
+        const val GET_FROM_GALLERY = 3
     }
     lateinit var bitmap:Bitmap
     lateinit var img:ImageView
     lateinit var selectedImage:Uri
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +59,15 @@ class UploadImageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        choose_image.setOnClickListener {
+            startActivityForResult(
+                Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.INTERNAL_CONTENT_URI
+                ), GET_FROM_GALLERY
+            )
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -69,14 +81,17 @@ class UploadImageFragment : Fragment() {
             }
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, selectedImage)
+                imageUpload.setImageBitmap(bitmap)
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
         }
+
         if(bitmap!=null){
             img.setImageBitmap(bitmap)
         }
+
     }
 }
