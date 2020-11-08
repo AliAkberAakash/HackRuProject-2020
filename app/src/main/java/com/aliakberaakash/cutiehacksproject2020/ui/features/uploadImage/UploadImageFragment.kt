@@ -64,33 +64,37 @@ class UploadImageFragment : Fragment() {
         }
 
         uploadBtn.setOnClickListener {
-            main_group.visibility = View.GONE
-            progressBar.visibility = View.VISIBLE
 
-            val baos = ByteArrayOutputStream()
-            bitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-            val data = baos.toByteArray()
+            if(bitmap==null){
+                Toast.makeText(requireContext(), "Choose an image", Toast.LENGTH_SHORT).show()
+            }else{
+                main_group.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
 
-            var storageRef = storage.reference
-            val currentTime = Timestamp(System.currentTimeMillis())
-            val filename = "$currentTime.jpg"
-            val imagesRef = storageRef.child("images/$filename")
-            var uploadTask = imagesRef.putBytes(data)
-            uploadTask.addOnFailureListener {
-                // Handle unsuccessful uploads
-            }.addOnSuccessListener { taskSnapshot ->
+                val baos = ByteArrayOutputStream()
+                bitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
 
-                val post = Post(
+                var storageRef = storage.reference
+                val currentTime = Timestamp(System.currentTimeMillis())
+                val filename = "$currentTime.jpg"
+                val imagesRef = storageRef.child("images/$filename")
+                var uploadTask = imagesRef.putBytes(data)
+                uploadTask.addOnFailureListener {
+                    // Handle unsuccessful uploads
+                }.addOnSuccessListener { taskSnapshot ->
+
+                    val post = Post(
                         id = "",
                         user = User(
-                                Firebase.auth.currentUser!!.displayName!!,
-                                ""
+                            Firebase.auth.currentUser!!.displayName!!,
+                            ""
                         ),
                         description = "",
                         image = imagesRef.path
-                )
-                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                db.collection("posts")
+                    )
+                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                    db.collection("posts")
                         .add(post)
                         .addOnSuccessListener { documentReference ->
                             main_group.visibility = View.VISIBLE
@@ -99,12 +103,20 @@ class UploadImageFragment : Fragment() {
                             imageUpload.setImageDrawable(
                                 ContextCompat.getDrawable(requireContext(),R.drawable.img_sub))
 
-                            Toast.makeText(requireContext(), "Successful", Toast.LENGTH_SHORT).show()
+                            //set the post id to reference it later
+                            post.id=documentReference.id
+                            db.collection("posts").document(documentReference.id)
+                                .set(post)
+
+                            Toast.makeText(requireContext(), "Successfully Uploaded", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
 
                         }
+                }
             }
+
+
         }
 
     }
