@@ -83,6 +83,7 @@ class LoginActivity: AppCompatActivity() {
             if (currentUser != null) {
                 putExtra("Name",currentUser.displayName)
                 putExtra("Email",currentUser.email)
+                putExtra("profile",currentUser.photoUrl.toString())
             }
         }
         if(currentUser!=null) {

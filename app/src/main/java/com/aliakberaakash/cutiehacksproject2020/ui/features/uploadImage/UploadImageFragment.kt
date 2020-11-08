@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.aliakberaakash.cutiehacksproject2020.R
 import com.google.android.material.button.MaterialButton
@@ -32,7 +33,7 @@ class UploadImageFragment : Fragment() {
     companion object{
         const val GET_FROM_GALLERY = 3
     }
-    lateinit var bitmap:Bitmap
+    var bitmap: Bitmap? = null
     lateinit var img: ImageView
     lateinit var selectedImage:Uri
     lateinit var storage: FirebaseStorage
@@ -63,38 +64,59 @@ class UploadImageFragment : Fragment() {
         }
 
         uploadBtn.setOnClickListener {
-            val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-            val data = baos.toByteArray()
 
-            var storageRef = storage.reference
-            val currentTime = Timestamp(System.currentTimeMillis())
-            val filename = "$currentTime.jpg"
-            val imagesRef = storageRef.child("images/$filename")
-            var uploadTask = imagesRef.putBytes(data)
-            uploadTask.addOnFailureListener {
-                // Handle unsuccessful uploads
-            }.addOnSuccessListener { taskSnapshot ->
+            if(bitmap==null){
+                Toast.makeText(requireContext(), "Choose an image", Toast.LENGTH_SHORT).show()
+            }else{
+                main_group.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
 
-                val post = Post(
+                val baos = ByteArrayOutputStream()
+                bitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+
+                var storageRef = storage.reference
+                val currentTime = Timestamp(System.currentTimeMillis())
+                val filename = "$currentTime.jpg"
+                val imagesRef = storageRef.child("images/$filename")
+                var uploadTask = imagesRef.putBytes(data)
+                uploadTask.addOnFailureListener {
+                    // Handle unsuccessful uploads
+                }.addOnSuccessListener { taskSnapshot ->
+
+                    val post = Post(
                         id = "",
                         user = User(
-                                Firebase.auth.currentUser!!.displayName!!,
-                                ""
+                            Firebase.auth.currentUser!!.displayName!!,
+                            ""
                         ),
                         description = "",
                         image = imagesRef.path
-                )
-                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                db.collection("posts")
+                    )
+                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                    db.collection("posts")
                         .add(post)
                         .addOnSuccessListener { documentReference ->
-                            Toast.makeText(requireContext(), "Successful", Toast.LENGTH_SHORT).show()
+                            main_group.visibility = View.VISIBLE
+                            progressBar.visibility = View.GONE
+                            bitmap = null
+                            imageUpload.setImageDrawable(
+                                ContextCompat.getDrawable(requireContext(),R.drawable.img_sub))
+
+                            //set the post id to reference it later
+                            post.id=documentReference.id
+                            db.collection("posts").document(documentReference.id)
+                                .set(post)
+
+                            Toast.makeText(requireContext(), "Successfully Uploaded", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
 
                         }
+                }
             }
+
+
         }
 
     }

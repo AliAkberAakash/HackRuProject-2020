@@ -1,8 +1,9 @@
 package com.aliakberaakash.cutiehacksproject2020.data.model
 
 data class Post (
-    val id : String,
-    val user : User,
-    val description : String,
-    val image : String,
+    var id : String,
+    var user : User,
+    var description : String = "",
+    var image : String,
+    var likes : Map<User, Boolean> = mutableMapOf()
 )
