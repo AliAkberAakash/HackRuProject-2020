@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.aliakberaakash.cutiehacksproject2020.R
 import com.google.android.material.button.MaterialButton
@@ -32,7 +33,7 @@ class UploadImageFragment : Fragment() {
     companion object{
         const val GET_FROM_GALLERY = 3
     }
-    lateinit var bitmap:Bitmap
+    var bitmap: Bitmap? = null
     lateinit var img: ImageView
     lateinit var selectedImage:Uri
     lateinit var storage: FirebaseStorage
@@ -63,8 +64,11 @@ class UploadImageFragment : Fragment() {
         }
 
         uploadBtn.setOnClickListener {
+            main_group.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+
             val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            bitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
             val data = baos.toByteArray()
 
             var storageRef = storage.reference
@@ -89,6 +93,12 @@ class UploadImageFragment : Fragment() {
                 db.collection("posts")
                         .add(post)
                         .addOnSuccessListener { documentReference ->
+                            main_group.visibility = View.VISIBLE
+                            progressBar.visibility = View.GONE
+                            bitmap = null
+                            imageUpload.setImageDrawable(
+                                ContextCompat.getDrawable(requireContext(),R.drawable.img_sub))
+
                             Toast.makeText(requireContext(), "Successful", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
