@@ -23,7 +23,7 @@ class PostAdapter(var postList: List<Post>) : RecyclerView.Adapter<PostViewHolde
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.postImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.cutie))
-        holder.userName.text = postList[position].user.displayName
+        holder.userName.text = postList[position].user.userName
         holder.description.text = postList[position].description
     }
 

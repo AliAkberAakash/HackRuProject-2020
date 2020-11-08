@@ -64,6 +64,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
 
+    //cloud storage
+    implementation 'com.google.firebase:firebase-storage-ktx'
+
+    //cloud firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
     //Navigation components
     def nav_version_ktx = "2.3.1"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version_ktx"
