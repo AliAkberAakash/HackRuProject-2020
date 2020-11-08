@@ -9,8 +9,13 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.aliakberaakash.cutiehacksproject2020.R
+import com.aliakberaakash.cutiehacksproject2020.data.model.Post
+import com.aliakberaakash.cutiehacksproject2020.data.model.User
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -28,6 +33,7 @@ class UploadImageFragment : Fragment() {
     }
     lateinit var bitmap:Bitmap
     lateinit var storage: FirebaseStorage
+    val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,8 +82,25 @@ class UploadImageFragment : Fragment() {
                 uploadTask.addOnFailureListener {
                     // Handle unsuccessful uploads
                 }.addOnSuccessListener { taskSnapshot ->
+
+                    val post = Post(
+                        id = "",
+                        user = User(
+                            Firebase.auth.currentUser!!.displayName!!,
+                            ""
+                        ),
+                        description = "",
+                        image = imagesRef.path
+                    )
                     // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                    
+                    db.collection("posts")
+                        .add(post)
+                        .addOnSuccessListener { documentReference ->
+                           Toast.makeText(requireContext(), "Successful", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+
+                        }
                 }
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
