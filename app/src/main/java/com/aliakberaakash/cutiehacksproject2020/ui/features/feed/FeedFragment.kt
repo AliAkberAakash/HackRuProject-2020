@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.feed_fragment.*
 class FeedFragment : Fragment() {
 
     companion object {
+        const val TAG = "FeedFragment"
         fun newInstance() = FeedFragment()
     }
 
@@ -44,44 +45,17 @@ class FeedFragment : Fragment() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-
-                    val id:String = document.getString("id")!!
-                    val description:String = document.getString("description")?:""
-                    val image:String = document.getString("image")!!
-                    postList.add(Post(id, User(
-                        id = user!!.email!!,
-                        userName = user.displayName!!,
-                        image = ""
-                    ),description,image))
+                    val post = document.toObject(Post::class.java)
+                    Log.d(TAG, post.toString())
+                    postList.add(post)
                 }
+                val adapter = PostAdapter(postList)
+                feed_recyclerview.adapter = adapter
             }
-
-        val adapter = PostAdapter(listOf(
-            Post(
-                image = "",
-                id = "",
-                user = User(
-                    id = user!!.email!!,
-                    userName = user.displayName!!,
-                    image = ""
-                ),
-                description = ""
-            ),
-                    Post(
-                    image = "",
-            id = "",
-            user = User(
-                id = user!!.email!!,
-                userName = user.displayName!!,
-                image = ""
-            ),
-            description = ""
-        )
-
-        ))
+        
         Log.d("xoxo", postList.toString())
 
-        feed_recyclerview.adapter = adapter
+
 
     }
 
