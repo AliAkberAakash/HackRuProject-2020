@@ -80,40 +80,44 @@ class UploadImageFragment : Fragment() {
                 val filename = "$currentTime.jpg"
                 val imagesRef = storageRef.child("images/$filename")
                 var uploadTask = imagesRef.putBytes(data)
-                uploadTask.addOnFailureListener {
-                    // Handle unsuccessful uploads
-                }.addOnSuccessListener { taskSnapshot ->
 
-                    val post = Post(
-                        id = "",
-                        user = User(
-                            Firebase.auth.currentUser!!.email!!,
-                            Firebase.auth.currentUser!!.displayName!!,
-                            ""
-                        ),
-                        description = "",
-                        image = imagesRef.path
-                    )
-                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                    db.collection("posts")
-                        .add(post)
-                        .addOnSuccessListener { documentReference ->
-                            main_group.visibility = View.VISIBLE
-                            progressBar.visibility = View.GONE
-                            bitmap = null
-                            imageUpload.setImageDrawable(
-                                ContextCompat.getDrawable(requireContext(),R.drawable.img_sub))
+                val urlTask = uploadTask.continueWithTask{
+                    imagesRef.downloadUrl
+                }.addOnCompleteListener{ taskSnapshot ->
 
-                            //set the post id to reference it later
-                            post.id=documentReference.id
-                            db.collection("posts").document(documentReference.id)
-                                .set(post)
+                    imagesRef.downloadUrl.onSuccessTask {
+                        val post = Post(
+                            id = "",
+                            user = User(
+                                Firebase.auth.currentUser!!.email!!,
+                                Firebase.auth.currentUser!!.displayName!!,
+                                ""
+                            ),
+                            description = "",
+                            image = taskSnapshot.result.toString()
+                        )
 
-                            Toast.makeText(requireContext(), "Successfully Uploaded", Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnFailureListener { e ->
+                        // add the post to firestore
+                        db.collection("posts")
+                            .add(post)
+                            .addOnSuccessListener { documentReference ->
+                                main_group.visibility = View.VISIBLE
+                                progressBar.visibility = View.GONE
+                                bitmap = null
+                                imageUpload.setImageDrawable(
+                                    ContextCompat.getDrawable(requireContext(),R.drawable.img_sub))
 
-                        }
+                                //set the post id to reference it later
+                                post.id=documentReference.id
+                                db.collection("posts").document(documentReference.id)
+                                    .set(post)
+
+                                Toast.makeText(requireContext(), "Successfully Uploaded", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener { e ->
+
+                            }
+                    }
                 }
             }
 

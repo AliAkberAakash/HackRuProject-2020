@@ -39,7 +39,7 @@ class FeedFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
         val user = Firebase.auth.currentUser
 
-        var postList:MutableList<Post> = mutableListOf()
+        val postList:MutableList<Post> = mutableListOf()
         val db = Firebase.firestore
         db.collection("posts")
             .get()
@@ -52,7 +52,7 @@ class FeedFragment : Fragment() {
                 val adapter = PostAdapter(postList)
                 feed_recyclerview.adapter = adapter
             }
-        
+
         Log.d("xoxo", postList.toString())
 
 

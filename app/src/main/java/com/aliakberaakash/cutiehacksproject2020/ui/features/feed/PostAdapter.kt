@@ -8,6 +8,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aliakberaakash.cutiehacksproject2020.R
 import com.aliakberaakash.cutiehacksproject2020.data.model.Post
+import com.bumptech.glide.Glide
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import timber.log.Timber
 
 class PostAdapter(var postList: List<Post>) : RecyclerView.Adapter<PostViewHolder>() {
 
@@ -22,7 +26,15 @@ class PostAdapter(var postList: List<Post>) : RecyclerView.Adapter<PostViewHolde
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.postImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.cutie))
+
+        Timber.d(postList[position].image)
+
+        Glide
+            .with(context)
+            .load(postList[position].image)
+            .centerCrop()
+            .into(holder.postImage)
+
         holder.userName.text = postList[position].user.userName
         holder.description.text = postList[position].description
         holder.likesCount.text = postList[position].likes.size.toString()
