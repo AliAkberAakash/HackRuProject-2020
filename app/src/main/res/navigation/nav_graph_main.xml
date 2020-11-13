@@ -27,8 +27,8 @@
     <fragment
         android:id="@+id/postDetailsFragment"
         android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.post_details.PostDetailsFragment"
-        android:label="post_details_fragment"
-        tools:layout="@layout/post_details_fragment" >
+        android:label="Post Details"
+        tools:layout="@layout/post_details_fragment">
         <argument
             android:name="postId"
             app:argType="string" />

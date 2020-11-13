@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.post_details_fragment.*
 class PostDetailsFragment : Fragment() {
 
     private lateinit var viewModel: PostDetailsViewModel
-    val args: PostDetailsFragmentArgs by navArgs()
+    private val args: PostDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +25,12 @@ class PostDetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(PostDetailsViewModel::class.java)
+        viewModel.getPost(args.postId)
 
-        my_text.text = args.postId
+
+        viewModel.post.observe(viewLifecycleOwner, {
+            my_text.text = it.id
+        })
     }
 
 }
