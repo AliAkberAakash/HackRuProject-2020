@@ -5,5 +5,5 @@ data class Post (
     var user : User = User(),
     var description : String = "",
     var image : String = "",
-    var likes : Map<String, Boolean> = mutableMapOf()
+    var claimers : List<String> = mutableListOf()
 )
