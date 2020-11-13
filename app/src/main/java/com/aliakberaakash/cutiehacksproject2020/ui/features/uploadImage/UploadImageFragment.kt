@@ -14,12 +14,12 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.aliakberaakash.cutiehacksproject2020.R
-import com.google.android.material.button.MaterialButton
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.aliakberaakash.cutiehacksproject2020.data.model.Post
 import com.aliakberaakash.cutiehacksproject2020.data.model.User
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.uploadimage_layout.*
@@ -97,22 +97,30 @@ class UploadImageFragment : Fragment() {
                             image = taskSnapshot.result.toString()
                         )
 
+                        // get the current timestamp
+                        val tsLong = System.currentTimeMillis() / 1000
+                        val ts = tsLong.toString()
                         // add the post to firestore
-                        db.collection("posts")
-                            .add(post)
-                            .addOnSuccessListener { documentReference ->
+                        db.collection("posts").document(ts)
+                            .set(post)
+                            .addOnSuccessListener { _ ->
                                 main_group.visibility = View.VISIBLE
                                 progressBar.visibility = View.GONE
                                 bitmap = null
                                 imageUpload.setImageDrawable(
-                                    ContextCompat.getDrawable(requireContext(),R.drawable.img_sub))
+                                    ContextCompat.getDrawable(requireContext(), R.drawable.img_sub)
+                                )
 
                                 //set the post id to reference it later
-                                post.id=documentReference.id
-                                db.collection("posts").document(documentReference.id)
+                                post.id = ts
+                                db.collection("posts").document(ts)
                                     .set(post)
 
-                                Toast.makeText(requireContext(), "Successfully Uploaded", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Successfully Uploaded",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                             .addOnFailureListener { e ->
 
