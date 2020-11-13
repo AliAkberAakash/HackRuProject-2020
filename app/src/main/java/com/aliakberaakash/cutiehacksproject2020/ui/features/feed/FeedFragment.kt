@@ -18,7 +18,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.feed_fragment.*
 
-class FeedFragment : Fragment() {
+class FeedFragment : Fragment(), FeedFragmentCallback {
 
     companion object {
         const val TAG = "FeedFragment"
@@ -49,7 +49,7 @@ class FeedFragment : Fragment() {
                     Log.d(TAG, post.toString())
                     postList.add(post)
                 }
-                val adapter = PostAdapter(postList)
+                val adapter = PostAdapter(postList, this)
                 feed_recyclerview.adapter = adapter
             }
 
@@ -57,6 +57,14 @@ class FeedFragment : Fragment() {
 
 
 
+    }
+
+    override fun onIWantThisClicked(documentId : String) {
+        viewModel.onIWantThisClicked(documentId)
+    }
+
+    override fun onCancelClaimClicked(documentId: String) {
+        viewModel.onCancelClaimClicked(documentId)
     }
 
 }

@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import timber.log.Timber
 
-class PostAdapter(var postList: List<Post>) : RecyclerView.Adapter<PostViewHolder>() {
+class PostAdapter(var postList: List<Post>, val callback: FeedFragmentCallback) : RecyclerView.Adapter<PostViewHolder>() {
 
     private lateinit var context : Context
 
@@ -42,12 +42,14 @@ class PostAdapter(var postList: List<Post>) : RecyclerView.Adapter<PostViewHolde
             val x = holder.iWantThisButton.visibility
             holder.iWantThisButton.visibility = holder.cancelButton.visibility
             holder.cancelButton.visibility = x
+            callback.onIWantThisClicked(postList[position].id)
         }
 
         holder.cancelButton.setOnClickListener {
             val x = holder.iWantThisButton.visibility
             holder.iWantThisButton.visibility = holder.cancelButton.visibility
             holder.cancelButton.visibility = x
+            callback.onCancelClaimClicked(postList[position].id)
         }
 
         if(postList[position].description.isEmpty())
