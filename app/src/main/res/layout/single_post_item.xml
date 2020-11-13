@@ -37,6 +37,8 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_color="@color/primary"
+            app:civ_border_width="2dp"
             android:id="@+id/profile_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -52,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:gravity="start"
-            android:textColor="@color/design_default_color_primary"
+            android:textColor="@color/username_text_color"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/profile_image"
             app:layout_constraintStart_toEndOf="@+id/profile_image"
@@ -101,6 +103,7 @@
             android:padding="8dp"
             android:textAlignment="textStart"
             android:textSize="16sp"
+            android:textColor="@color/post_text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image"
