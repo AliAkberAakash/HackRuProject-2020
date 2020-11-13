@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.aliakberaakash.cutiehacksproject2020.R
 import com.aliakberaakash.cutiehacksproject2020.data.model.Post
@@ -37,6 +38,14 @@ class PostAdapter(var postList: List<Post>, val callback: FeedFragmentCallback) 
 
         holder.userName.text = postList[position].user.userName
         holder.description.text = postList[position].description
+
+        holder.postContainer.setOnClickListener {
+
+            val action = FeedFragmentDirections.actionFeedFragmentToPostDetailsFragment(
+                postId = postList[position].id
+            )
+            it.findNavController().navigate(action)
+        }
 
         holder.iWantThisButton.setOnClickListener {
             val x = holder.iWantThisButton.visibility

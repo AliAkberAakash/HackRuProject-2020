@@ -10,7 +10,11 @@
         android:id="@+id/feedFragment"
         android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.feed.FeedFragment"
         android:label="Feed"
-        tools:layout="@layout/feed_fragment" />
+        tools:layout="@layout/feed_fragment" >
+        <action
+            android:id="@+id/action_feedFragment_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.menu.MenuFragment"
@@ -20,4 +24,13 @@
         android:id="@+id/uploadImageFragment"
         android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.uploadImage.UploadImageFragment"
         android:label="Create Post" />
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.post_details.PostDetailsFragment"
+        android:label="post_details_fragment"
+        tools:layout="@layout/post_details_fragment" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
 </navigation>
