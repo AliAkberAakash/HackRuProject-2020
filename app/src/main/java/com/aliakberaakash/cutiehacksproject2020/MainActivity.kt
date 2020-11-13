@@ -21,30 +21,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var navHostFragment : NavHostFragment
-    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setUpDataBinding()
         setUpNavigation()
-        val info: Intent = getIntent()
-        val email:String? = info.getStringExtra("Email")
-        val userName:String? = info.getStringExtra("Name")
-        val image: String? = info.getStringExtra("profile")
-        val imageUri = URI.create(image)
-        val data = hashMapOf(
-                "name" to userName,
-                "profile" to imageUri
-        )
-        db.collection("users").document(email.toString())
-                .set(data)
-                .addOnSuccessListener { documentReference ->
-                    Log.d("success","DocumentSnapshot written with ID: ${email.toString()}")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("Error adding document", e)
-                }
 
     }
 
