@@ -50,6 +50,9 @@ class PostAdapter(var postList: List<Post>) : RecyclerView.Adapter<PostViewHolde
             holder.cancelButton.visibility = x
         }
 
+        if(postList[position].description.isEmpty())
+            holder.description.visibility = View.GONE
+
     }
 
     override fun getItemCount() = postList.size
