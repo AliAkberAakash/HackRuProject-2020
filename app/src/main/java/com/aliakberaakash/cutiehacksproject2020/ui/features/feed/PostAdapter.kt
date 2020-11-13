@@ -37,7 +37,19 @@ class PostAdapter(var postList: List<Post>) : RecyclerView.Adapter<PostViewHolde
 
         holder.userName.text = postList[position].user.userName
         holder.description.text = postList[position].description
-        holder.likesCount.text = postList[position].likes.size.toString()
+
+        holder.iWantThisButton.setOnClickListener {
+            val x = holder.iWantThisButton.visibility
+            holder.iWantThisButton.visibility = holder.cancelButton.visibility
+            holder.cancelButton.visibility = x
+        }
+
+        holder.cancelButton.setOnClickListener {
+            val x = holder.iWantThisButton.visibility
+            holder.iWantThisButton.visibility = holder.cancelButton.visibility
+            holder.cancelButton.visibility = x
+        }
+
     }
 
     override fun getItemCount() = postList.size
