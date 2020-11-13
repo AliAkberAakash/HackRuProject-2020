@@ -32,7 +32,7 @@ class PostAdapter(var postList: List<Post>) : RecyclerView.Adapter<PostViewHolde
         Glide
             .with(context)
             .load(postList[position].image)
-            .centerCrop()
+            .placeholder(R.drawable.placeholder)
             .into(holder.postImage)
 
         holder.userName.text = postList[position].user.userName
