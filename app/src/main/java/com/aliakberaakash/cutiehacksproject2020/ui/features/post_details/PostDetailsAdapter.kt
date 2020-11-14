@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aliakberaakash.cutiehacksproject2020.R
 import com.aliakberaakash.cutiehacksproject2020.data.model.User
 
-class PostDetailsAdapter(val usersList : List<User>) : RecyclerView.Adapter<PostDetailsViewHolder>() {
+class PostDetailsAdapter(val usersList : MutableList<User>) : RecyclerView.Adapter<PostDetailsViewHolder>() {
 
     private lateinit var context: Context
 

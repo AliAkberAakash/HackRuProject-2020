@@ -31,8 +31,9 @@ class PostDetailsFragment : Fragment() {
 
         adapter = PostDetailsAdapter(mutableListOf())
         users_list.adapter = adapter
-        viewModel.post.observe(viewLifecycleOwner, {
-
+        viewModel.users.observe(viewLifecycleOwner, {
+            adapter.usersList.addAll(it)
+            adapter.notifyDataSetChanged()
         })
     }
 
