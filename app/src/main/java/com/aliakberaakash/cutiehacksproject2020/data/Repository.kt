@@ -1,5 +1,6 @@
 package com.aliakberaakash.cutiehacksproject2020.data
 
+import com.aliakberaakash.cutiehacksproject2020.data.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -12,7 +13,11 @@ class Repository {
 
     fun checkCurrentUser(email : String) = email == user?.email
 
-    fun getCurrentUser() = user
+    fun getCurrentUser() = User(
+        user?.email!!,
+        user.displayName!!,
+        ""
+    )
 
     suspend fun onIWantThisClicked(documentId : String){
         db.collection("posts")

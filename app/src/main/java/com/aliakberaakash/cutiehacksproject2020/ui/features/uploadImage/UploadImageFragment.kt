@@ -13,9 +13,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.aliakberaakash.cutiehacksproject2020.R
 import com.aliakberaakash.cutiehacksproject2020.data.model.Post
 import com.aliakberaakash.cutiehacksproject2020.data.model.User
+import com.aliakberaakash.cutiehacksproject2020.ui.features.feed.FeedViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -39,6 +41,8 @@ class UploadImageFragment : Fragment() {
     lateinit var storage: FirebaseStorage
     val db = Firebase.firestore
 
+    private lateinit var viewModel: UploadImageViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +55,7 @@ class UploadImageFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(UploadImageViewModel::class.java)
         storage = Firebase.storage
 
 
@@ -75,43 +80,33 @@ class UploadImageFragment : Fragment() {
                 bitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                 val data = baos.toByteArray()
 
-                var storageRef = storage.reference
+                val storageRef = storage.reference
                 val currentTime = Timestamp(System.currentTimeMillis())
                 val filename = "$currentTime.jpg"
                 val imagesRef = storageRef.child("images/$filename")
-                var uploadTask = imagesRef.putBytes(data)
+                val uploadTask = imagesRef.putBytes(data)
 
+                val tsLong = System.currentTimeMillis() / 1000
+                val ts = tsLong.toString()
                 val urlTask = uploadTask.continueWithTask{
                     imagesRef.downloadUrl
                 }.addOnCompleteListener{ taskSnapshot ->
 
                     imagesRef.downloadUrl.onSuccessTask {
                         val post = Post(
-                            id = "",
-                            user = User(
-                                Firebase.auth.currentUser!!.email!!,
-                                Firebase.auth.currentUser!!.displayName!!,
-                                ""
-                            ),
-                            description = "",
+                            id = ts,
+                            user = viewModel.getCurrentUser(),
+                            description = description_field.text.toString(),
                             image = taskSnapshot.result.toString()
                         )
 
-                        // get the current timestamp
-                        val tsLong = System.currentTimeMillis() / 1000
-                        val ts = tsLong.toString()
                         // add the post to firestore
                         db.collection("posts").document(ts)
                             .set(post)
-                            .addOnSuccessListener { _ ->
+                            .addOnSuccessListener {
                                 main_group.visibility = View.VISIBLE
                                 progressBar.visibility = View.GONE
                                 bitmap = null
-
-                                //set the post id to reference it later
-                                post.id = ts
-                                db.collection("posts").document(ts)
-                                    .set(post)
 
                                 Toast.makeText(
                                     requireContext(),
