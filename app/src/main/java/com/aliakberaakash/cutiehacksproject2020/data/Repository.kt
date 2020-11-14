@@ -13,11 +13,16 @@ class Repository {
 
     fun checkCurrentUser(email : String) = email == user?.email
 
+
     fun getCurrentUser() = User(
         user?.email!!,
         user.displayName!!,
         ""
     )
+
+    fun getPost(documentId: String) {
+
+    }
 
     suspend fun onIWantThisClicked(documentId : String){
         db.collection("posts")
