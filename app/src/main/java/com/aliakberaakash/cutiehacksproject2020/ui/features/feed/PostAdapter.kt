@@ -33,7 +33,8 @@ class PostAdapter(var postList: List<Post>, val callback: FeedFragmentCallback) 
         Glide
             .with(context)
             .load(postList[position].image)
-            .placeholder(R.drawable.placeholder)
+            .dontAnimate()
+            .placeholder(R.drawable.ic_loading)
             .into(holder.postImage)
 
         holder.userName.text = postList[position].user.userName
