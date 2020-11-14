@@ -9,24 +9,14 @@ import com.google.firebase.ktx.Firebase
 
 class FeedViewModel : ViewModel() {
 
-    private val db = Firebase.firestore
-    val user = Firebase.auth.currentUser
     private val repository = Repository()
 
     fun checkCurrentUser(email : String) = repository.checkCurrentUser(email)
 
     fun getCurrentUser() = repository.getCurrentUser()
 
-    fun onIWantThisClicked(documentId : String){
-        db.collection("posts")
-            .document(documentId)
-            .update("claimers", FieldValue.arrayUnion(user?.email))
-    }
+    fun onIWantThisClicked(documentId : String) = repository.onIWantThisClicked(documentId)
 
-    fun onCancelClaimClicked(documentId : String){
-        db.collection("posts")
-            .document(documentId)
-            .update("claimers", FieldValue.arrayRemove(user?.email))
-    }
+    fun onCancelClaimClicked(documentId : String) = repository.onCancelClaimClicked(documentId)
 
 }
