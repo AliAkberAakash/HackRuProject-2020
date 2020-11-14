@@ -48,8 +48,20 @@ class PostAdapter(var postList: List<Post>, val callback: FeedFragmentCallback) 
             it.findNavController().navigate(action)
         }
 
-        if(callback.checkCurrentUser(postList[position].user.email))
+        if(callback.checkCurrentUser(postList[position].user.email)) {
             holder.iWantThisButton.visibility = View.GONE
+            holder.cancelButton.visibility = View.GONE
+        }else {
+            if(callback.getCurrentUserEmail() in  postList[position].claimers)
+            {
+                holder.iWantThisButton.visibility = View.GONE
+                holder.cancelButton.visibility = View.VISIBLE
+            }else{
+                holder.iWantThisButton.visibility = View.VISIBLE
+                holder.cancelButton.visibility = View.GONE
+            }
+
+        }
 
         holder.iWantThisButton.setOnClickListener {
             val x = holder.iWantThisButton.visibility
