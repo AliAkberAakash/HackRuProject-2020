@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.aliakberaakash.cutiehacksproject2020.R
+import com.aliakberaakash.cutiehacksproject2020.data.model.User
 import kotlinx.android.synthetic.main.post_details_fragment.*
 
 class PostDetailsFragment : Fragment() {
 
     private lateinit var viewModel: PostDetailsViewModel
+    private lateinit var adapter: PostDetailsAdapter
     private val args: PostDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -27,7 +29,8 @@ class PostDetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PostDetailsViewModel::class.java)
         viewModel.getPost(args.postId)
 
-
+        adapter = PostDetailsAdapter(mutableListOf())
+        users_list.adapter = adapter
         viewModel.post.observe(viewLifecycleOwner, {
 
         })
