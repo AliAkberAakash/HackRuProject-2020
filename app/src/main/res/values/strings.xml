@@ -15,4 +15,6 @@
     <string name="create_post">Create Post</string>
     <string name="choose_image">Choose Image</string>
     <string name="cancel">Cancel Claim</string>
+    <string name="loading">Loading...</string>
+    <string name="people_who_want_this">People who want this:</string>
 </resources>

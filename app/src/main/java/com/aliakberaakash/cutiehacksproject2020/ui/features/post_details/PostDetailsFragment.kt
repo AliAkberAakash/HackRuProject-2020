@@ -29,7 +29,7 @@ class PostDetailsFragment : Fragment() {
 
 
         viewModel.post.observe(viewLifecycleOwner, {
-            my_text.text = it.id
+
         })
     }
 
