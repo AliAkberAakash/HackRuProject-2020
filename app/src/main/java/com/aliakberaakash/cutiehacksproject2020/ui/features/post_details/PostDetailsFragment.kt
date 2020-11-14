@@ -13,6 +13,8 @@ import com.aliakberaakash.cutiehacksproject2020.core.makeItGone
 import com.aliakberaakash.cutiehacksproject2020.data.model.User
 import kotlinx.android.synthetic.main.post_details_fragment.*
 import kotlinx.android.synthetic.main.single_post_item.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class PostDetailsFragment : Fragment() {
 
@@ -59,23 +61,30 @@ class PostDetailsFragment : Fragment() {
 
             }
 
-            draw_winner_button.setOnClickListener {
-
-                if(draw_winner_button.text == getString(R.string.draw_winner))
-                {
-                    //todo logic for drawing winner
-                }else{
-                    viewModel.onIWantThisClicked(args.postId)
-                    draw_winner_button.makeItGone()
-                }
-            }
-
         })
 
         viewModel.users.observe(viewLifecycleOwner, {
-            adapter.usersList.addAll(it)
+            adapter.usersList =  it
             adapter.notifyDataSetChanged()
         })
+
+        draw_winner_button.setOnClickListener {
+
+            if(draw_winner_button.text == getString(R.string.draw_winner))
+            {
+                //todo logic for drawing winner
+            }else{
+
+                runBlocking {
+                    viewModel.onIWantThisClicked(args.postId)
+                    draw_winner_button.makeItGone()
+                    no_item_message.makeItGone()
+                    viewModel.getPost(args.postId)
+                }
+
+
+            }
+        }
 
     }
 

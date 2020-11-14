@@ -14,13 +14,13 @@ class Repository {
 
     fun getCurrentUser() = user
 
-    fun onIWantThisClicked(documentId : String){
+    suspend fun onIWantThisClicked(documentId : String){
         db.collection("posts")
             .document(documentId)
             .update("claimers", FieldValue.arrayUnion(user?.email))
     }
 
-    fun onCancelClaimClicked(documentId: String) {
+    suspend fun onCancelClaimClicked(documentId: String) {
         db.collection("posts")
             .document(documentId)
             .update("claimers", FieldValue.arrayRemove(user?.email))

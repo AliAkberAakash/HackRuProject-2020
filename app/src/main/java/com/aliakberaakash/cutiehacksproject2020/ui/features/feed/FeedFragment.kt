@@ -17,6 +17,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.feed_fragment.*
+import kotlinx.coroutines.runBlocking
 
 class FeedFragment : Fragment(), FeedFragmentCallback {
 
@@ -46,16 +47,11 @@ class FeedFragment : Fragment(), FeedFragmentCallback {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     val post = document.toObject(Post::class.java)
-                    Log.d(TAG, post.toString())
                     postList.add(post)
                 }
                 val adapter = PostAdapter(postList, this)
                 feed_recyclerview.adapter = adapter
             }
-
-        Log.d("xoxo", postList.toString())
-
-
 
     }
 
@@ -64,11 +60,11 @@ class FeedFragment : Fragment(), FeedFragmentCallback {
     override fun getCurrentUserEmail() = viewModel.getCurrentUser()?.email
 
     override fun onIWantThisClicked(documentId : String) {
-        viewModel.onIWantThisClicked(documentId)
+        runBlocking{ viewModel.onIWantThisClicked(documentId) }
     }
 
     override fun onCancelClaimClicked(documentId: String) {
-        viewModel.onCancelClaimClicked(documentId)
+        runBlocking{ viewModel.onCancelClaimClicked(documentId) }
     }
 
 }

@@ -15,8 +15,8 @@ class FeedViewModel : ViewModel() {
 
     fun getCurrentUser() = repository.getCurrentUser()
 
-    fun onIWantThisClicked(documentId : String) = repository.onIWantThisClicked(documentId)
+    suspend fun onIWantThisClicked(documentId : String) = repository.onIWantThisClicked(documentId)
 
-    fun onCancelClaimClicked(documentId : String) = repository.onCancelClaimClicked(documentId)
+    suspend fun onCancelClaimClicked(documentId : String) = repository.onCancelClaimClicked(documentId)
 
 }
