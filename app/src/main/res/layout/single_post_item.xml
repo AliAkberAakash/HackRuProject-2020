@@ -29,14 +29,16 @@
             app:layout_constraintBottom_toTopOf="@+id/i_want_this_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description">
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            app:layout_constraintVertical_bias="0.0">
 
             <ImageView
-                android:adjustViewBounds="true"
                 android:id="@+id/post_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="ContentDescription" />
+                android:adjustViewBounds="true"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/placeholder" />
         </androidx.cardview.widget.CardView>
 
 
@@ -74,27 +76,29 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:text="I want this"
+            android:text="@string/i_want_this"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:textColor="@color/red"
-            android:visibility="gone"
             android:id="@+id/cancel_claim"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/cancel"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textColor="@color/red"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_holder" />
+            app:layout_constraintTop_toBottomOf="@+id/image_holder"
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/description"
@@ -105,8 +109,9 @@
             android:layout_marginEnd="16dp"
             android:padding="8dp"
             android:textAlignment="textStart"
-            android:textSize="16sp"
             android:textColor="@color/post_text_color"
+            android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image"
