@@ -2,8 +2,10 @@ package com.aliakberaakash.cutiehacksproject2020.ui.features.post_details
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.aliakberaakash.cutiehacksproject2020.data.Repository
 import com.aliakberaakash.cutiehacksproject2020.data.model.Post
 import com.aliakberaakash.cutiehacksproject2020.data.model.User
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -11,13 +13,19 @@ class PostDetailsViewModel : ViewModel() {
     private val db = Firebase.firestore
     val post : MutableLiveData<Post> = MutableLiveData()
     val users : MutableLiveData<List<User>> = MutableLiveData()
+    private val repository = Repository()
+
+    fun checkCurrentUser(email : String) = repository.checkCurrentUser(email)
+
+    fun getCurrentUser() = repository.getCurrentUser()
 
     fun getPost(documentId : String){
         db.collection("posts").document(documentId)
             .get().addOnCompleteListener{
                 if(it.isSuccessful){
-                    val post = it.result?.toObject(Post::class.java)
-                    val userList = post?.claimers
+                    val postObj = it.result?.toObject(Post::class.java)
+                    post.value = postObj
+                    val userList = postObj?.claimers
                     getUsers(userList)
                 }
             }
