@@ -19,6 +19,10 @@ class PostDetailsViewModel : ViewModel() {
 
     fun getCurrentUser() = repository.getCurrentUser()
 
+    fun onIWantThisClicked(documentId : String) = repository.onIWantThisClicked(documentId)
+
+    fun onCancelClaimClicked(documentId : String) = repository.onCancelClaimClicked(documentId)
+
     fun getPost(documentId : String){
         db.collection("posts").document(documentId)
             .get().addOnCompleteListener{
