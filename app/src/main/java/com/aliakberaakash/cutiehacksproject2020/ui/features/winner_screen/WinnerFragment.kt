@@ -6,9 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.aliakberaakash.cutiehacksproject2020.R
+import kotlinx.android.synthetic.main.winner_fragment.*
 
 class WinnerFragment : Fragment() {
+
+    private val args : WinnerFragmentArgs by navArgs()
 
     companion object {
         fun newInstance() = WinnerFragment()
@@ -26,7 +30,9 @@ class WinnerFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(WinnerViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        winner_text.text = args.postId
+
     }
 
 }

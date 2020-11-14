@@ -43,10 +43,12 @@ class PostAdapter(var postList: List<Post>, val callback: FeedFragmentCallback) 
         holder.description.text = postList[position].description
 
         holder.postContainer.setOnClickListener {
-
-            val action = FeedFragmentDirections.actionFeedFragmentToPostDetailsFragment(
-                postId = postList[position].id
-            )
+            val postId =  postList[position].id
+            val action = if(postList[position].winner.isEmpty()) {
+                FeedFragmentDirections.actionFeedFragmentToPostDetailsFragment(postId)
+            }else{
+                FeedFragmentDirections.actionFeedFragmentToWinnerFragment(postId)
+            }
             it.findNavController().navigate(action)
         }
 
