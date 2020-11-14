@@ -10,6 +10,10 @@
         android:id="@+id/uploadImageFragment"
         android:title="@string/create_post" />
     <item
+        android:icon="@drawable/ic_chat"
+        android:id="@+id/chatListFragment"
+        android:title="@string/create_post" />
+    <item
         android:icon="@drawable/ic_baseline_menu_24"
         android:id="@+id/menuFragment"
         android:title="@string/title_menu" />

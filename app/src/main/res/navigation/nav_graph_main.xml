@@ -33,4 +33,9 @@
             android:name="postId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/chatListFragment"
+        android:name="com.aliakberaakash.cutiehacksproject2020.ui.features.chat.ChatListFragment"
+        android:label="Recent"
+        tools:layout="@layout/chat_list_fragment" />
 </navigation>
