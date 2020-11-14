@@ -8,8 +8,10 @@ import com.google.firebase.ktx.Firebase
 
 class FeedViewModel : ViewModel() {
 
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
     val user = Firebase.auth.currentUser
+
+    fun checkCurrentUser(email : String) = email == user?.email
 
     fun onIWantThisClicked(documentId : String){
         db.collection("posts")

@@ -59,6 +59,9 @@ class FeedFragment : Fragment(), FeedFragmentCallback {
 
     }
 
+    override fun checkCurrentUser(email: String) = viewModel.checkCurrentUser(email)
+
+
     override fun onIWantThisClicked(documentId : String) {
         viewModel.onIWantThisClicked(documentId)
     }
