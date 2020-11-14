@@ -49,4 +49,10 @@ class PostDetailsViewModel : ViewModel() {
                 }
 
     }
+
+    fun setWinner(post: Post) {
+        db.collection("posts")
+            .document(post.id)
+            .update("winner", post.winner)
+    }
 }

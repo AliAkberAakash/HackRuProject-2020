@@ -1,6 +1,5 @@
 package com.aliakberaakash.cutiehacksproject2020.ui.features.post_details
 
-import android.opengl.Visibility
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,17 +9,18 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.aliakberaakash.cutiehacksproject2020.R
 import com.aliakberaakash.cutiehacksproject2020.core.makeItGone
-import com.aliakberaakash.cutiehacksproject2020.data.model.User
+import com.aliakberaakash.cutiehacksproject2020.data.model.Post
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.post_details_fragment.*
-import kotlinx.android.synthetic.main.single_post_item.*
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 
 class PostDetailsFragment : Fragment() {
 
     private lateinit var viewModel: PostDetailsViewModel
     private lateinit var adapter: PostDetailsAdapter
     private val args: PostDetailsFragmentArgs by navArgs()
+    private  lateinit var post : Post
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +39,7 @@ class PostDetailsFragment : Fragment() {
 
         viewModel.post.observe(viewLifecycleOwner, {
 
+            post = it
 
             if (viewModel.checkCurrentUser(it.user.email)) {
                 if (it.claimers.isNullOrEmpty()) {
@@ -47,14 +48,12 @@ class PostDetailsFragment : Fragment() {
                     draw_winner_button.isEnabled = false
                 }
                 draw_winner_button.text = getString(R.string.draw_winner)
-                //todo call logic for draw winner
             } else {
                 if (it.claimers.isNullOrEmpty())
                     no_item_message.visibility = View.VISIBLE
 
-                if (viewModel.getCurrentUser()?.email !in it.claimers) {
+                if (viewModel.getCurrentUser().email !in it.claimers) {
                     draw_winner_button.text = getString(R.string.i_want_this)
-                    //todo call logic for I want this
                 } else {
                     draw_winner_button.visibility = View.GONE
                 }
@@ -72,7 +71,21 @@ class PostDetailsFragment : Fragment() {
 
             if(draw_winner_button.text == getString(R.string.draw_winner))
             {
-                //todo logic for drawing winner
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(getString(R.string.draw_a_winner))
+                    .setMessage(getString(R.string.draw_winner_prompt))
+                    .setNeutralButton(resources.getString(R.string.no)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
+                        val winner = (post.claimers.indices-1).random()
+                        Timber.d(winner.toString())
+                        post.winner = post.claimers[winner]
+                        viewModel.setWinner(post)
+
+                    }
+                    .show()
+
             }else{
 
                 runBlocking {
@@ -87,5 +100,7 @@ class PostDetailsFragment : Fragment() {
         }
 
     }
+
+
 
 }

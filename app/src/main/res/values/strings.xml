@@ -22,4 +22,8 @@
     <string name="i_want_this">I want this</string>
     <string name="no_claimers_yet_msg">No claimers yet</string>
     <string name="write_a_description">Write a description</string>
+    <string name="draw_a_winner">Draw a Winner</string>
+    <string name="draw_winner_prompt">Are you sure you want to draw a winner?</string>
+    <string name="accept">yes</string>
+    <string name="no">no</string>
 </resources>
