@@ -26,4 +26,6 @@
     <string name="draw_winner_prompt">Are you sure you want to draw a winner?</string>
     <string name="accept">yes</string>
     <string name="no">no</string>
+    <string name="the_winner_is">The winner is :</string>
+    <string name="contact_with_host">Contact with Host</string>
 </resources>
