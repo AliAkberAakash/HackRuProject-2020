@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.aliakberaakash.cutiehacksproject2020.R
+import com.aliakberaakash.cutiehacksproject2020.core.makeItGone
+import com.aliakberaakash.cutiehacksproject2020.core.makeItVisible
 import com.aliakberaakash.cutiehacksproject2020.data.model.Post
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
@@ -78,7 +80,9 @@ class PostAdapter(var postList: List<Post>, val callback: FeedFragmentCallback) 
         }
 
         if(postList[position].description.isEmpty())
-            holder.description.visibility = View.GONE
+            holder.description.makeItGone()
+        else
+            holder.description.makeItVisible()
 
     }
 
