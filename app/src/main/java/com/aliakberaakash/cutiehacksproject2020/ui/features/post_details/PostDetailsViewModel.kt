@@ -54,5 +54,8 @@ class PostDetailsViewModel : ViewModel() {
         db.collection("posts")
             .document(post.id)
             .update("winner", post.winner)
+            .addOnCompleteListener{
+
+            }
     }
 }
