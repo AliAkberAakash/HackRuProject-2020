@@ -45,7 +45,7 @@ class UploadImageFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.uploadimage_layout, container, false)
         val uploadBtn: MaterialButton = view.findViewById(R.id.uploadBtn)
-        img = view.findViewById(R.id.imageUpload)
+        img = view.findViewById(R.id.image_upload)
         return view
     }
 
@@ -107,9 +107,6 @@ class UploadImageFragment : Fragment() {
                                 main_group.visibility = View.VISIBLE
                                 progressBar.visibility = View.GONE
                                 bitmap = null
-                                imageUpload.setImageDrawable(
-                                    ContextCompat.getDrawable(requireContext(), R.drawable.img_sub)
-                                )
 
                                 //set the post id to reference it later
                                 post.id = ts
@@ -145,7 +142,7 @@ class UploadImageFragment : Fragment() {
             }
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, selectedImage)
-                imageUpload.setImageBitmap(bitmap)
+                image_upload.setImageBitmap(bitmap)
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
             } catch (e: IOException) {
