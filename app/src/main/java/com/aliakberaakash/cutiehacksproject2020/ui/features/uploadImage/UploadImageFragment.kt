@@ -16,10 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.aliakberaakash.cutiehacksproject2020.R
 import com.aliakberaakash.cutiehacksproject2020.data.model.Post
-import com.aliakberaakash.cutiehacksproject2020.data.model.User
-import com.aliakberaakash.cutiehacksproject2020.ui.features.feed.FeedViewModel
 import com.google.android.material.button.MaterialButton
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -107,6 +104,8 @@ class UploadImageFragment : Fragment() {
                                 main_group.visibility = View.VISIBLE
                                 progressBar.visibility = View.GONE
                                 bitmap = null
+                                description_field.text?.clear()
+                                image_upload.visibility=View.GONE
 
                                 Toast.makeText(
                                     requireContext(),
